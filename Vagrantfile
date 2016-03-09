@@ -69,6 +69,12 @@ Vagrant.configure(2) do |config|
   # documentation for more information about their specific syntax and use.
   config.vm.provision "shell", inline: <<-SHELL
     sudo apt-get update
+    sudo apt-get install language-pack-ja
+
+    update-locale LANG=ja_JP.UTF-8
+    echo "Asia/Tokyo" > /etc/timezone
+    dpkg-reconfigure -f noninteractive tzdata
+
     wget https://raw.githubusercontent.com/dokku/dokku/v0.4.14/bootstrap.sh
     sudo DOKKU_TAG=v0.4.14 bash bootstrap.sh
   SHELL
